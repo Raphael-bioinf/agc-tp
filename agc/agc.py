@@ -23,13 +23,13 @@ from collections import Counter
 # ftp://ftp.ncbi.nih.gov/blast/matrices/
 import nwalign3 as nw
 
-__author__ = "Your Name"
+__author__ = "Raphael Bodin"
 __copyright__ = "Universite Paris Diderot"
-__credits__ = ["Your Name"]
+__credits__ = ["Raphael Bodin"]
 __license__ = "GPL"
 __version__ = "1.0.0"
-__maintainer__ = "Your Name"
-__email__ = "your@email.fr"
+__maintainer__ = "Raphael Bodin"
+__email__ = "raphael.bodin@etu.univ-nantes.fr"
 __status__ = "Developpement"
 
 
@@ -72,6 +72,20 @@ def get_arguments():
 #==============================================================
 # Main program
 #==============================================================
+def read_fasta(amplicon_file,minseqlen):
+	with open(amplicon_file,"r") as filin:
+		seq=""
+		for line in filin:
+			if line.startwith('>'):
+				if len(seq)>= minseqlen:
+					yield seq
+				seq=""
+			else:
+				seq=seq+line[:-1]
+		if len(seq)>=minseqlen:
+			yield seq
+
+
 def main():
     """
     Main program function
