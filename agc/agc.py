@@ -101,7 +101,15 @@ def get_chunks(sequence, chunk_size):
 		chunk_list.append(sequence[i*chunk_size-chunk_size:i*chunk_size])
 		i+= 1
 	return chunk_list
+def cut_kmer (sequence, kmer_size):
+	for i in range(len(sequence)-kmer_size+1):
+		yield sequence[i:i+kmer_size]
 
+def get_unique_kmer(kmer_dict,sequence,id_seq,kmer_size):
+	for seq in cut_kmer(sequence,kmer_size):
+		if seq not in kmer_dict:
+			kmer_dict[seq].append(id_seq)
+	return kmer_dict
 def main():
 	args = get_arguments()
 	for i in dereplication_fulllength(args.amplicon_file,args.minseqlen,args.mincount):
