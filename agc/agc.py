@@ -92,14 +92,24 @@ def dereplication_fulllength(amplicon_file,minseqlen,mincount):
 		if j[1] > mincount:
 			yield j
 
+def get_chunks(sequence, chunk_size):
+	if len(sequence) < 4*chunk_size:
+		raise ValueError
+	chunk_mist[]
+	i=1
+	while(i*chunk_size<len(sequence)):
+		chunk.list.append(sequence[i*chunk_size-chunk_size:i*chunk_size])
+		i+= 1
+	return chunk_list
 
 def main():
     """
     Main program function
     """
     # Get arguments
-    args = get_arguments()
-
+	args = get_arguments()
+	for i in dereplication_fulllength(args.amplicon_file,args.minseqlen,args.mincount):
+		print(i)
 
 if __name__ == '__main__':
     main()
