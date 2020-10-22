@@ -84,6 +84,13 @@ def read_fasta(amplicon_file,minseqlen):
 				seq=seq+line[:-1]
 		if len(seq)>=minseqlen:
 			yield seq
+def dereplication_fulllength(amplicon_file,minseqlen,mincount):
+	seq_list=[]
+	for seq in read_fasta(amplicon_file,minseqlen)
+		seq_list.append(seq)
+	for j in Couter(seq_list).most_common():
+		if j[1] > mincount:
+			yield j
 
 
 def main():
