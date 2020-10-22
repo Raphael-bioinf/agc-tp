@@ -110,6 +110,8 @@ def get_unique_kmer(kmer_dict,sequence,id_seq,kmer_size):
 		if seq not in kmer_dict:
 			kmer_dict[seq].append(id_seq)
 	return kmer_dict
+def search_mates(kmer_dict,sequence,kmer_size):
+	return[i[0]for i in Counter([ids for kmer in cut_kmer(sequence,km_size) if kmer in kmer_dict for ids in kmer_dict[kmer]]).most_common(8)]
 def main():
 	args = get_arguments()
 	for i in dereplication_fulllength(args.amplicon_file,args.minseqlen,args.mincount):
