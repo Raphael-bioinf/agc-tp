@@ -95,7 +95,7 @@ def dereplication_fulllength(amplicon_file,minseqlen,mincount):
 def get_chunks(sequence, chunk_size):
 	if len(sequence) < 4*chunk_size:
 		raise ValueError
-	chunk_mist[]
+	chunk_list[]
 	i=1
 	while(i*chunk_size<len(sequence)):
 		chunk.list.append(sequence[i*chunk_size-chunk_size:i*chunk_size])
