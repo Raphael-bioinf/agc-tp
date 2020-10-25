@@ -74,18 +74,21 @@ def get_arguments():
 #==============================================================
 
 def read_fasta(amplicon_file,minseqlen):
-"""Fonction pour lire un fichier fasta"""
-	with open(amplicon_file,"r") as filin:
-		seq=""
-		for line in filin:
-			if line.startswith('>'):
-				if len(seq)>= minseqlen:
-					yield seq
-				seq=""
-			else:
-				seq=seq+line[:-1]
-		if len(seq)>=minseqlen:
-			yield seq
+	"""Fonction pour lire un fichier fasta"""
+	if amplicon_file.endswith(".gz"):
+		filin = gzip.open(amplicon_file,"rb")
+	else:
+		filin = open(amplicon_file)
+	seq=""
+	for line in filin:
+		if line.startswith(">"):
+			if len(seq)>= minseqlen:
+				yield seq
+			seq=""
+		else:
+			seq=seq+line.strip()
+	yield seq
+	filin.close()
 
 def dereplication_fulllength(amplicon_file,minseqlen,mincount):
 	seq_list=[]
