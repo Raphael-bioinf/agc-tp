@@ -108,10 +108,22 @@ def cut_kmer (sequence, kmer_size):
 def get_unique_kmer(kmer_dict,sequence,id_seq,kmer_size):
 	for seq in cut_kmer(sequence,kmer_size):
 		if seq not in kmer_dict:
+			kmer_dict[seq] = [id_seq]
+		elif id_seq not in kmer_dict[seq]:
 			kmer_dict[seq].append(id_seq)
 	return kmer_dict
+
 def search_mates(kmer_dict,sequence,kmer_size):
-	return[i[0]for i in Counter([ids for kmer in cut_kmer(sequence,km_size) if kmer in kmer_dict for ids in kmer_dict[kmer]]).most_common(8)]
+	return[i[0]for i in Counter([ids for kmer in cut_kmer(sequence,kmer_size) if kmer in kmer_dict for ids in kmer_dict[kmer]]).most_common(8)]
+
+def get_identity(alignement_list):
+	count_same=0
+	for i in range(len(alignement_list[0])):
+		if alignement_list[0][i] == alignement_list[1][i]:
+			count_same += 1
+	return count_same/len(alignement_list[0])*100
+
+
 def main():
 	args = get_arguments()
 	for i in dereplication_fulllength(args.amplicon_file,args.minseqlen,args.mincount):
