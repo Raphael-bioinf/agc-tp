@@ -72,7 +72,9 @@ def get_arguments():
 #==============================================================
 # Main program
 #==============================================================
+
 def read_fasta(amplicon_file,minseqlen):
+"""Fonction pour lire un fichier fasta"""
 	with open(amplicon_file,"r") as filin:
 		seq=""
 		for line in filin:
@@ -84,6 +86,7 @@ def read_fasta(amplicon_file,minseqlen):
 				seq=seq+line[:-1]
 		if len(seq)>=minseqlen:
 			yield seq
+
 def dereplication_fulllength(amplicon_file,minseqlen,mincount):
 	seq_list=[]
 	for seq in read_fasta(amplicon_file,minseqlen):
